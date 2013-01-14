@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Backdoor</title>
+    <link href="backdoor.css?=1" rel="stylesheet">
+  </head>
+  <body>
+    <div id="terminal">
+      <div id="output"></div>
+      <form action="/post">
+        <label class="clearfix">
+          <span id="prompt"></span>
+          <input name="command" type="text" />
+        </label>
+      </form>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script src="backdoor.js"></script>
+  </body>
+</html>
