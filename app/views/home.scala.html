@@ -1,9 +1,11 @@
+@()
+@defining(1) { version =>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Backdoor</title>
-    <link href="backdoor.css?=1" rel="stylesheet">
+    <link href="@routes.Assets.at("backdoor.css?=" + version)" rel="stylesheet">
   </head>
   <body>
     <div id="terminal">
@@ -15,7 +17,8 @@
         </label>
       </form>
     </div>
-    <script src="jquery.min.js"></script>
-    <script src="backdoor.js"></script>
+    <script src="@routes.Assets.at("jquery.min.js")"></script>
+    <script src="@routes.Assets.at("backdoor.js?=" + version)"></script>
   </body>
 </html>
+}
