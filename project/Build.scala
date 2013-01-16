@@ -1,6 +1,6 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 trait Resolvers {
 }
@@ -15,7 +15,6 @@ object CharonBuild extends Build with Resolvers with Dependencies {
 
   private val buildSettings = Project.defaultSettings ++ Seq(
     version := appVersion,
-    scalaVersion := "2.9.1",
     resolvers := Seq(),
     libraryDependencies := Seq(),
     shellPrompt := {
@@ -24,5 +23,5 @@ object CharonBuild extends Build with Resolvers with Dependencies {
     scalacOptions := Seq("-deprecation", "-unchecked")
   )
 
-  lazy val charon = PlayProject(appName, appVersion, mainLang = SCALA, settings = buildSettings)
+  lazy val backdoor = play.Project(appName, appVersion, settings = buildSettings)
 }
