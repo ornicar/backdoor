@@ -22,8 +22,8 @@ green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
 
 * {
   font-family: monospace;
-  font-size: 17px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 19px;
   background: #002630;
   color: #93a1a1;
 }
@@ -51,7 +51,7 @@ div.command.failure strong {
 }
 
 pre {
-  max-height: 200px;
+  max-height: 400px;
   overflow: auto;
 }
 

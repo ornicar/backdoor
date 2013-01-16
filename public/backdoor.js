@@ -1,10 +1,15 @@
 $(function() {
 
+  var $terminal = $('#terminal');
   var $output = $('#output');
-  var promptText = document.domain + '>';
   var $promptElem = $('#prompt');
   var $form = $('form');
   var $input = $form.find('input');
+  var promptText = $terminal.data('prompt');
+
+  var commands = {
+    'clear': function() { $output.html(''); }
+  };
 
   $promptElem.text(promptText);
   $input.width($form.width() - $promptElem.width() - 30);
@@ -21,17 +26,24 @@ $(function() {
     $form.addClass('processing');
     var command = $input.val();
     $input.val('');
-    $.ajax({
-      url: $form.attr('action'),
-      type: 'post',
-      data: { command: command },
-      success: function(a, b, response) { output(command, response); },
-      error: function(response) { output(command, response, true); },
-      complete: function(response) {
-        $form.removeClass('processing');
-        $input.focus();
-      }
-    });
-    return false;
+    if (typeof commands[command] != 'undefined') {
+      commands[command]();
+      $form.removeClass('processing');
+      $input.focus();
+    }
+    else {
+      $.ajax({
+        url: $form.attr('action'),
+        type: 'post',
+        data: { command: command },
+        success: function(a, b, response) { output(command, response); },
+        error: function(response) { output(command, response, true); },
+        complete: function(response) {
+          $form.removeClass('processing');
+          $input.focus();
+        }
+      });
+    }
+  return false;
   });
 });

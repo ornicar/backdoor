@@ -1,3 +1,4 @@
 GET   /                                controllers.Main.home
+POST  /                                controllers.Main.command
 
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

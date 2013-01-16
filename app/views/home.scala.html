@@ -1,4 +1,5 @@
-@()
+@(user: String, host: String, path: String)
+
 @defining(1) { version =>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +9,9 @@
     <link href="@routes.Assets.at("backdoor.css?=" + version)" rel="stylesheet">
   </head>
   <body>
-    <div id="terminal">
+    <div id="terminal" data-prompt="@user@@@host:@path">
       <div id="output"></div>
-      <form action="/post">
+      <form action="@routes.Main.command()">
         <label class="clearfix">
           <span id="prompt"></span>
           <input name="command" type="text" />
