@@ -8,12 +8,14 @@ import play.api.data.Forms._
 
 object Main extends Controller {
 
+  private lazy val init = for {
+    user ← Processor("whoami").right
+    host ← Processor("hostname").right
+    path ← Processor("pwd").right
+  } yield views.html.home(user, host, path)
+
   val home = Action { req ⇒
-    renderEither(for {
-      user ← Processor("whoami").right
-      host ← Processor("hostname").right
-      path ← Processor("pwd").right
-    } yield views.html.home(user, host, path))
+    renderEither(init)
   }
 
   val command = Action { implicit req ⇒
