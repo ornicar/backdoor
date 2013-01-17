@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# Usage:
+# bin/deploy hollie
+# bin/deploy cook
+
 APP_NAME=backdoor-1.0
-REMOTE="hollie"
+REMOTE=$1
 REMOTE_DIR="/home/backdoor"
 
 bin/play dist
@@ -25,8 +29,8 @@ RSYNC_OPTIONS=" \
   --exclude logs \
   --exclude RUNNING_PID";
 
-echo "Rsync scripts, binaries and assets"
+echo "Rsync scripts, binaries and assets to $REMOTE"
 rsync $RSYNC_OPTIONS bin dist/$APP_NAME/* public $REMOTE:$REMOTE_DIR
 
-echo "Restart $APP_NAME"
+echo "Restart $APP_NAME on $REMOTE"
 ssh $REMOTE "service backdoor restart"
