@@ -11,7 +11,7 @@ trait Dependencies {
 object CharonBuild extends Build with Resolvers with Dependencies {
 
   val appName = "backdoor"
-  val appVersion = "0.1"
+  val appVersion = "1.0"
 
   private val buildSettings = Project.defaultSettings ++ Seq(
     version := appVersion,

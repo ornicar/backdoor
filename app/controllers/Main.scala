@@ -34,20 +34,13 @@ object Main extends Controller {
     import java.io.IOException
 
     def apply(command: String): Either[String, String] = {
-      var output = collection.mutable.ListBuffer[String]()
-      var logger = ProcessLogger(x ⇒ output +: x)
       try {
-        val result = Process(command).!!(logger)
-        println(result, output)
+        val result = Process(command).!!
         Right(result.trim)
       }
       catch {
-        case ex: Exception ⇒ {
-          println(output)
-          Left(ex.getMessage + "\n" + output.mkString("\n"))
-        }
-        case ex: IOException      ⇒ Left(ex.getMessage + "\n" + output.mkString("\n"))
-        case ex: RuntimeException ⇒ Left(ex.getMessage + "\n" + output.mkString("\n"))
+        case ex: IOException      ⇒ Left(ex.getMessage)
+        case ex: RuntimeException ⇒ Left(ex.getMessage)
       }
     }
   }
