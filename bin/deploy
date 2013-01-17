@@ -1,0 +1,32 @@
+#!/bin/sh
+
+APP_NAME=backdoor-1.0
+REMOTE="hollie"
+REMOTE_DIR="/home/backdoor"
+
+bin/play dist
+if [ $? != 0 ]; then
+  echo "Deploy canceled"
+  exit 1
+fi
+cd dist
+rm -rf $APP_NAME
+unzip $APP_NAME.zip
+chmod +x $APP_NAME/start
+cd ..
+
+RSYNC_OPTIONS=" \
+  --archive \
+  --force \
+  --delete \
+  --progress \
+  --compress \
+  --checksum \
+  --exclude logs \
+  --exclude RUNNING_PID";
+
+echo "Rsync scripts, binaries and assets"
+rsync $RSYNC_OPTIONS bin dist/$APP_NAME/* public $REMOTE:$REMOTE_DIR
+
+echo "Restart $APP_NAME"
+ssh $REMOTE "service backdoor restart"
